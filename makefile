@@ -1,10 +1,10 @@
-SRCS	= src/main.c src/hooks.c src/points.c src/utils.c src/struct.c gnl/*.c
+SRCS	= src/main.c src/hooks.c src/points.c src/utils.c src/struct.c gnl/get_next_line.c gnl/get_next_line_utils.c 
 
 OBJS	= $(SRCS:.c=.o)
 
 CC		= gcc
 
-CFLAGS	= -Wall -Wextra -Werror -MMD
+CFLAGS	= -Wall -Wextra -Werror
 
 LIB		= -Ignl -lm -lmlx -framework OpenGL -framework Appkit -L inc/minilibx_macos
 

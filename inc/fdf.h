@@ -58,7 +58,7 @@ typedef struct	s_line {
 
 unsigned long	ft_atoill(char *s);
 
-void    free_fdf(t_point **fdf);
+void    free_fdf(void **fdf);
 
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 
@@ -66,7 +66,7 @@ char	**ft_split(char const *s, char c);
 
 int		key_hook(int keycode, t_var *vars);
 
-int		close_win(int keycode, t_var *vars);
+int		close_win(t_var *vars);
 
 void	print_values(t_point **p, t_map size);
 

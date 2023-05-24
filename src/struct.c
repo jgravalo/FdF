@@ -6,7 +6,7 @@
 /*   By: jgravalo <jgravalo@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 17:44:32 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/05/23 16:03:04 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/05/24 19:40:05 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,22 @@ void	win_len(t_var *vars)
 	printf("win: x=%f y=%f\n", vars->x, vars->y);
 }
 
+void	vars_values(t_var *vars, int i, int j)
+{
+	vars->size.x = i ;
+	vars->size.y = j ;
+	vars->x = 1240;
+	vars->y = 1080;
+	vars->size.start_x = vars->x / 2;
+//		+ vars->size.x * cos(MPI / 4)
+//		+ vars->size.x * cos(MPI / 4);
+	vars->size.start_y = vars->y * 2 / 5;
+//	vars->size.space = make_space(vars->size);
+	vars->size.space = vars->x / 2 / (vars->size.x + vars->size.y)
+		/ cos(MPI / 4);
+	printf("map: x=%f y=%f\n", vars->size.x, vars->size.y);
+}
+
 t_map   make_size(int argc, char **argv, t_var *vars)
 {
 	int     j;
@@ -57,24 +73,24 @@ t_map   make_size(int argc, char **argv, t_var *vars)
 	fd = open(argv[1], O_RDONLY);
 	c = get_next_line(fd);
 	m = ft_split(c, ' ');
+	free(c);
 	i = 0;
 	while (m[i])
+	{
         i++;
+		printf("%s, ", m[i]);
+	}
+	i--;
+	printf("\n");
+	free_fdf((void **)m);// LEAKS ???
 	j = 0;
 	while (c)
 	{
 		c = get_next_line(fd);
+		free(c);
 		j++;
 	}
-	vars->size.x = i ;
-	vars->size.y = j ;
-	printf("map: x=%f y=%f\n", vars->size.x, vars->size.y);
-	vars->size.space = make_space(vars->size);
-	win_len(vars);
-	vars->x = 1240;
-	vars->y = 1080;
-	vars->size.start_x = vars->x / 2;
-	vars->size.start_y = vars->y / 2;
+	vars_values(vars, i , j);
 	close(fd);
 	return (vars->size);
 }
@@ -86,8 +102,6 @@ t_point	make_point(t_var *vars, char *src, int y, int x)
 	char    **m;
 
 	n = 0;
-	p.x = x;
-	p.y = y;
 	while (src[n] && src[n] != ',')
 		n++;
 	if (src[n] == ',')
@@ -95,13 +109,15 @@ t_point	make_point(t_var *vars, char *src, int y, int x)
 		m = ft_split(src, ',');
 		p.z = ft_atoi(m[0]) * vars->size.space;
 		p.color = ft_atoill(m[1]);// PREGUNTAR VOID *
-		free(m);
+		free_fdf((void **)m);// LEAKS ???
 	}
 	else
 	{
 		p.z = ft_atoi(src) * vars->size.space;
 		p.color = 0x00FF0000;
 	}
+	p.x = x + 1;
+	p.y = y + 1;
 	p.pos_x = vars->size.start_x
 		+ (p.x * vars->size.space * cos(MPI / 4))
 		- (p.y * vars->size.space * sin(MPI / 4))
@@ -125,6 +141,7 @@ t_point	**make_struct(int argc, char **argv, t_var *vars)
 	int		i;
 	int		j;
 	char    **m;
+	char    *c;
 	
 	if (argc != 2)
 		exit(-1);
@@ -135,7 +152,8 @@ t_point	**make_struct(int argc, char **argv, t_var *vars)
 	{
 //		printf("aqui\n");
 		p[i] = (t_point *)malloc(sizeof(t_point) * (vars->size.x + 1));
-		m = ft_split(get_next_line(fd), ' ');
+		c = get_next_line(fd);
+		m = ft_split(c, ' ');
 		if (!m)
 			break ;
 		j = 0;
@@ -144,7 +162,7 @@ t_point	**make_struct(int argc, char **argv, t_var *vars)
 			p[i][j] = make_point(vars, m[j], i, j);
 			j++;
 		}
-		free(m);// LEAKS ???
+		free_fdf((void **)m);// LEAKS ???
 		i++;
 	}
 	close(fd);
