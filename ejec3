@@ -1,1 +1,0 @@
-gcc -Wall -Wextra -Werror -lmlx -framework OpenGL -framework Appkit -Ignl -L inc/minilibx_macos src/test.c inc/minilibx/mlx.h gnl/*.c utils.c && ./a.out test_maps/42.fdf

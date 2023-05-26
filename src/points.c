@@ -6,7 +6,7 @@
 /*   By: jgravalo <jgravalo@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 17:30:31 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/05/24 16:20:55 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/05/26 18:36:39 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,68 +22,48 @@ void    my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 void	my_point(t_var *vars, int x, int y, int color)
 {
-	if (x > 10 && x < vars->x - 10 && y > 10 && x < vars->y - 10)
+	if (x > 1 && x < vars->x - 1 && y > 1 && x < vars->y - 1)
 		my_mlx_pixel_put(&vars->img, x, y, color);
 }
 
-void print_line(t_var *vars, t_point p_i, t_point p_f)
+void	draw_line(t_var *vars, t_point start, t_point end)
 {
-	float	x;
-	float	y;
-	float	sum_x;
-	float	sum_y;
-	float	nx;
-	float	ny;
-/*	int		i;
-	float	h;
-	float	ang;
+	t_point	delta;
+	t_point	pixel;
+	int		pixels;
+	int		len;
 
-	i = 0;
-*/	x = p_f.pos_x - p_i.pos_x;
-	y = p_f.pos_y - p_i.pos_y;
-	nx = 0.0;
-	ny = 0.0;
-	sum_x = 0.1;
-	if (x > y)
-		sum_x = x / y;
-	else
-		sum_y = y / x;
-	while ((nx <= x && nx >= -x) && (ny <= y && ny >= -y))
+	delta.pos_x = end.pos_x - start.pos_x;
+	delta.pos_y = end.pos_y - start.pos_y;
+	pixels = sqrt((delta.pos_x * delta.pos_x) + \
+			(delta.pos_y * delta.pos_y));
+	len = pixels;
+	delta.pos_x /= pixels;
+	delta.pos_y /= pixels;
+	pixel.pos_x = start.pos_x;
+	pixel.pos_y = start.pos_y;
+	while (pixels > 0)
 	{
-		if (nx <= x / 2)
-			my_point(vars, p_i.pos_x + nx, p_i.pos_y + ny, p_i.color);
+		if (pixels < len / 2)
+			my_point(vars, pixel.pos_x, pixel.pos_y, end.color);
 		else
-			my_point(vars, p_i.pos_x + nx, p_i.pos_y + ny, p_f.color);
-		nx += sum_x * 0.01;
-		ny += sum_y * 0.01;
+			my_point(vars, pixel.pos_x, pixel.pos_y, start.color);
+		pixel.pos_x += delta.pos_x;
+		pixel.pos_y += delta.pos_y;
+		pixels = pixels - 1;
 	}
-
-/*	
-	h = sqrt(y * y * x * x);
-	ang = asin(abs(y) / h);
-	printf("x = %d\n", x);
-	printf("y = %d\n", y);
-	printf("h = %f\n", h);
-	printf("ang = %f\n", ang);
-	while (i < h)
-	{
-		if (i < h / 2)
-			my_point(vars, p_i.pos_x + i * cos(ang), p_i.pos_y + i * sin(ang)
-				, p_i.color);
-		else
-			my_point(vars, p_i.pos_x + i * cos(ang), p_i.pos_y + i * sin(ang)
-				, p_f.color);
-		i++;
-	}
-*/
 }
 
 void make_line(t_var *vars, t_point **fdf, int i, int j)
 {
-	if (j > 0)
-		print_line(vars, fdf[i][j - 1], fdf[i][j]);
-	if (i > 0)
-		print_line(vars, fdf[i - 1][j], fdf[i][j]);
+	if (j < vars->size.x - 1)
+//		print_line(vars, fdf[i][j], fdf[i][j + 1]);
+//		my_line(vars, fdf[i][j], fdf[i][j + 1]);
+		draw_line(vars, fdf[i][j], fdf[i][j + 1]);
+	if (i < vars->size.y - 1)
+//		print_line(vars, fdf[i][j], fdf[i + 1][j]);
+//		my_line(vars, fdf[i][j], fdf[i + 1][j]);
+		draw_line(vars, fdf[i][j], fdf[i + 1][j]);
 }
 
 void print_struct(t_var	*vars, t_point **fdf)
@@ -98,8 +78,11 @@ void print_struct(t_var	*vars, t_point **fdf)
 		while (j < vars->size.x)
 		{
 //			printf("aqui[%d][%d]\n", i, j);
-//			my_point(vars, fdf[i][j].pos_x, fdf[i][j].pos_y, fdf[i][j].color);
-			make_line(vars, fdf, i, j);
+			
+//			if (vars->size.space > 5)
+				make_line(vars, fdf, i, j);
+//			else
+//				my_point(vars, fdf[i][j].pos_x, fdf[i][j].pos_y, fdf[i][j].color);
 			j++;
 		}
 		i++;

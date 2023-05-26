@@ -26,10 +26,10 @@ void	my_line_img(void *mlx, void *mlx_win, t_data img, t_line start, t_line fina
 {
 	int lenx;
 	int leny;
-	int sumx;
-	int sumy;
-	int nx;
-	int ny;
+	float sumx;
+	float sumy;
+	float nx;
+	float ny;
 
 	lenx = final.x - start.x;
 	leny = final.y - start.y;
@@ -39,13 +39,13 @@ void	my_line_img(void *mlx, void *mlx_win, t_data img, t_line start, t_line fina
 		leny *= -1;
 	nx = 0;
 	ny = 0;
-	sumx = 1;
-	sumy = 1;
+	float sum = 1; 
+	sumx = sum;
+	sumy = sum;
 	if (lenx > leny)
-		sumx = lenx / leny;
+		sumx = lenx / leny * sum;
 	else
-		sumy = leny / lenx;
-//	while (nx <= lenx - 1 && nx >= -lenx + 1 && ny <= leny - 1 && ny >= -leny + 1)
+		sumy = leny / lenx * sum;
 	while (nx <= lenx && nx >= -lenx && ny <= leny && ny >= -leny)
 	{
 		mlx_put_image_to_window(mlx, mlx_win, img.img, start.x + nx, start.y + ny);
