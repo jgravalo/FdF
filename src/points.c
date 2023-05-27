@@ -6,24 +6,23 @@
 /*   By: jgravalo <jgravalo@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 17:30:31 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/05/26 19:11:33 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/05/27 20:38:50 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../inc/fdf.h"
 
-void    my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
-	char    *dst;
+	char	*dst;
 
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	*(unsigned int *)dst = color;
 }
 
 void	my_point(t_var *vars, int x, int y, int color)
 {
-	if (x > 1 && x < vars->x - 1 && y > 1 && x < vars->y - 1)
-		my_mlx_pixel_put(&vars->img, x, y, color);
+	my_mlx_pixel_put(&vars->img, x, y, color);
 }
 
 void	draw_line(t_var *vars, t_point start, t_point end)
@@ -54,7 +53,7 @@ void	draw_line(t_var *vars, t_point start, t_point end)
 	}
 }
 
-void make_line(t_var *vars, t_point **fdf, int i, int j)
+void	make_line(t_var *vars, t_point **fdf, int i, int j)
 {
 	if (j < vars->size.x - 1)
 		draw_line(vars, fdf[i][j], fdf[i][j + 1]);
@@ -62,10 +61,10 @@ void make_line(t_var *vars, t_point **fdf, int i, int j)
 		draw_line(vars, fdf[i][j], fdf[i + 1][j]);
 }
 
-void print_struct(t_var	*vars, t_point **fdf)
+void	print_struct(t_var	*vars, t_point **fdf)
 {
 	int	i;
-	int j;
+	int	j;
 
 	i = 0;
 	while (i < vars->size.y)

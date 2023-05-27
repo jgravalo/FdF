@@ -6,32 +6,11 @@
 /*   By: jgravalo <jgravalo@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 12:15:02 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/05/24 19:40:11 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/05/27 17:53:11 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../inc/fdf.h"
-/*
-int		ft_atoi(char *s)
-{
-	int	sign;
-	int	res;
 
-	sign = 1;
-	res = 0;
-	while (*s == ' ' || (*s >= 9 && *s <= 13))
-		s++;
-	if (*s == '-')
-		sign = -1;
-	if (*s == '+' || *s == '-')
-		s++;
-	while (*s)
-	{
-		res = res * 10 + *s - 48;
-		s++;
-	}
-	return (res * sign);
-}
-*/
 unsigned long	ft_atoill(char *s)
 {
 	unsigned long	res;
@@ -53,10 +32,10 @@ unsigned long	ft_atoill(char *s)
 	return (res);
 }
 
-char    *ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char            *s2;
-	unsigned long   j;
+	char			*s2;
+	unsigned long	j;
 
 	if (!s)
 		return (0);

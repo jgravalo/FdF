@@ -26,6 +26,8 @@ typedef struct	s_map{
 	float			space;
 	float			start_x;
 	float			start_y;
+	float			max_z;
+	float			min_z;
 }	t_map;
 
 typedef struct	s_data {
@@ -61,7 +63,7 @@ void	print_values(t_point **p, t_map size);
 
 void	my_point(t_var *vars, int x, int y, int color);
 
-t_point	**make_struct(int argc, char **argv, t_var *vars);
+t_point	**make_struct(char **argv, t_var *vars);
 
 t_map	make_size(int argc, char **argv, t_var *vars);
 

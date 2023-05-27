@@ -1,4 +1,6 @@
-SRCS	= src/main.c src/hooks.c src/points.c src/utils.c src/struct.c gnl/get_next_line.c gnl/get_next_line_utils.c 
+SRCS	= src/main.c src/hooks.c src/size.c\
+		  src/points.c src/utils.c src/struct.c\
+		  gnl/get_next_line.c gnl/get_next_line_utils.c 
 
 OBJS	= $(SRCS:.c=.o)
 
@@ -22,5 +24,6 @@ fclean: clean
 		$(MAKE) clean 
 		$(RM) $(NAME)
 re:     fclean
-		$(NAME)
+		$(MAKE) fclean 
+		$(MAKE) all
 .PHONY: all clean fclean re
