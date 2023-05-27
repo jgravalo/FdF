@@ -6,7 +6,7 @@
 /*   By: jgravalo <jgravalo@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 17:44:32 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/05/27 20:47:48 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/05/27 20:49:06 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ float	make_space(t_map size)
 	i = size.x * space;
 	j = size.y * space * 0.8;
 	if (1624 < i)
-	{
 		space = 1200 / size.x;
-	}
-	printf("space = %f\n", space);
 	return (space);
 }
 
