@@ -17,8 +17,9 @@ all:	$(NAME)
 $(NAME) : $(OBJS)
 		$(CC) $(CFLAGS) $(LIB) $(OBJS) -o $(NAME)
 clean:
-		$(RM) $(NAME)
+		$(RM) $(OBJS)
 fclean: clean
+		$(MAKE) clean 
 		$(RM) $(NAME)
 re:     fclean
 		$(NAME)

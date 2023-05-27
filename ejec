@@ -1,1 +1,0 @@
-gcc -Wall -Wextra -Werror -lmlx -framework OpenGL -framework Appkit -L inc/minilibx_macos src2/prueba.c inc/minilibx/mlx.h && ./a.out

@@ -1,7 +1,6 @@
 #ifndef FDF_H
 #define FDF_H
 #include "minilibx_macos/mlx.h"
-#include "hooks.h"
 #include "../gnl/get_next_line.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,6 +8,7 @@
 #include <math.h>
 
 #define MPI 3.1415926535897932384
+# define KEY_ESC 53
 
 typedef struct	s_point{
 	float	x;
@@ -44,17 +44,6 @@ typedef struct	s_var{
 	float			x;
 	float			y;
 }	t_var;
-
-typedef struct	s_line {
-	int		x1;
-	int		y1;
-	int		x2;
-	int		y2;
-	int		lenx;
-	int		leny;
-	float	sumx;
-	float	sumy;
-}	t_line;
 
 unsigned long	ft_atoill(char *s);
 

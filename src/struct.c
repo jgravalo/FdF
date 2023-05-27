@@ -6,7 +6,7 @@
 /*   By: jgravalo <jgravalo@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 17:44:32 by jgravalo          #+#    #+#             */
-/*   Updated: 2023/05/26 18:34:05 by jgravalo         ###   ########.fr       */
+/*   Updated: 2023/05/26 18:54:07 by jgravalo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,8 @@ t_map   make_size(int argc, char **argv, t_var *vars)
 	free(c);
 	i = 0;
 	while (m[i])
-//	{
 		i++;
-//		printf("%s, ", m[i]);
-//	}
 	i--;
-//	printf("\n");
 	free_fdf((void **)m);
 	j = 0;
 	while (c)
